@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>M3 — Critic rejecting a bad draft</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 32px 40px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.45;
+      background: #0f1419;
+      color: #e7ecf1;
+    }
+    h1 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 8px;
+      color: #fff;
+    }
+    .caption {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 13px;
+      color: #9aa7b5;
+      margin: 0 0 24px;
+    }
+    .block {
+      border: 1px solid #2a3441;
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+      background: #161b22;
+      white-space: pre-wrap;
+    }
+    .label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #9aa7b5;
+      margin-bottom: 10px;
+    }
+    .fail { border-color: #8b3a3a; }
+    .fail .label { color: #f85149; }
+    .bad { color: #ffa198; }
+    .ok-line { color: #c9d1d9; }
+  </style>
+</head>
+<body>
+  <h1>M3 capture — Critic rejects a bad draft</h1>
+  <p class="caption">Unauthorized GA date + invented NPS → critic FAIL → revise 1/2 (then escalate at cap).</p>
+
+  <div class="block">
+    <div class="label">Cortex proposed output (bad draft)</div>
+<span class="ok-line">### Weekly Leadership Status Update for Project P-NORTH (Northstar)
+
+**Status:** Green
+**Sprint:** Sprint 24</span>
+<span class="bad">**GA Date:** GA locked for July 15, 2026
+**Latest Metrics:**
+- Activation Rate: 41% (up from 39% week-over-week)
+- NPS rose to 62 this week.</span>
+<span class="ok-line">
+**Recent Engineering Activity:**
+- Merged PRs: #812, #815
+- Open Issues: #818 Empty-state copy needs review</span>
+  </div>
+
+  <div class="block fail">
+    <div class="label">Critic — independent validation</div>
+{
+  "verdict": "fail",
+  "reasons": [
+    "The draft incorrectly states a GA date of July 15, 2026, without a source. This constitutes a new, unauthorized commitment."
+  ]
+}
+
+-> critic rejected; revision 1/2
+  </div>
+</body>
+</html>

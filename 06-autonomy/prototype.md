@@ -22,9 +22,11 @@ Real screenshots of *your* Cortex running. These are the `00-build/CORTEX-ANATOM
 | # | Screenshot | What it shows | From |
 |---|---|---|---|
 | 1 | Captured in run log + `00-build/run-output/status-update-happy.md` (replace with screenshot when handy) | happy-path run: drafted update + **HITL CHECKPOINT / SUCCESS STOP** (queued, not posted). Also verified stuck stop via `python agent.py missing-data` → `project_not_found` | M2 |
-| 2 | Transcript below + `00-build/run-output/m3-critic-reject-trace.txt` | Critic rejects unauthorized GA date + invented NPS; revises twice then escalates | M3 |
+| 2 | ![M3 critic reject](m3-critic-reject.png) + transcript below + `00-build/run-output/m3-critic-reject-trace.txt` | Critic rejects unauthorized GA date + invented NPS; revises twice then escalates | M3 |
 
 ### M3 capture — critic rejecting a bad draft
+
+![Critic rejects unauthorized GA date + invented NPS; revises twice then escalates](m3-critic-reject.png)
 
 **Caption:** Critic rejects unauthorized GA date + invented NPS; revises twice then escalates to “Needs Human Review — Validation Failed.”
 
