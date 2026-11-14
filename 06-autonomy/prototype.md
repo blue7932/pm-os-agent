@@ -22,7 +22,33 @@ Real screenshots of *your* Cortex running. These are the `00-build/CORTEX-ANATOM
 | # | Screenshot | What it shows | From |
 |---|---|---|---|
 | 1 | Captured in run log + `00-build/run-output/status-update-happy.md` (replace with screenshot when handy) | happy-path run: drafted update + **HITL CHECKPOINT / SUCCESS STOP** (queued, not posted). Also verified stuck stop via `python agent.py missing-data` → `project_not_found` | M2 |
-| 2 | _[img]_ | the critic rejecting a bad draft (revise/block) | M3 |
+| 2 | Transcript below + `00-build/run-output/m3-critic-reject-trace.txt` | Critic rejects unauthorized GA date + invented NPS; revises twice then escalates | M3 |
+
+### M3 capture — critic rejecting a bad draft
+
+**Caption:** Critic rejects unauthorized GA date + invented NPS; revises twice then escalates to “Needs Human Review — Validation Failed.”
+
+```
+CRITIC, independent validation
+{
+  "verdict": "fail",
+  "reasons": [
+    "The draft incorrectly states a GA date of July 15, 2026, without a source.
+     This constitutes a new, unauthorized commitment."
+  ]
+}
+
+-> critic rejected; revision 1/2
+… (second fail: invented NPS “62” with no source) …
+-> critic rejected; revision 2/2
+… (third fail after max revisions) …
+
+STUCK STOP, REVISION CAP (2). Needs Human Review — Validation Failed.
+LAST DRAFT (held, NOT posted)
+Why it was held: validator rejected 2x (revision cap)
+```
+
+Full trace: `00-build/run-output/m3-critic-reject-trace.txt`
 | 3 | _[img]_ | a grounded update citing pulled activity + a caught hallucination | M4 |
 | 4 | _[img]_ | jailbreak refused + escalated | M5 |
 | 5 | _[img]_ | an iteration/cost/queue bound halting a runaway | M5 |
