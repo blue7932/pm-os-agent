@@ -1,0 +1,19 @@
+{
+  "test": "M4c_isolated_critic_fabricated_metric",
+  "note": "Isolated critic.review() call — NOT a full Cortex agent loop. Critic rules and fixtures unchanged. Nonconfidential P-NORTH only.",
+  "fabricated_metric": {
+    "name": "activation_rate",
+    "prior": "43%",
+    "value": "47%",
+    "absent_from_source": true
+  },
+  "source_data_summary": "task-happy brief + get_project(P-NORTH) + get_activity with PRs #820/#823 and issue #825 but NO activation_rate metric + nonconfidential norms excerpt",
+  "proposed_claim": "The activation rate has improved from 43% to 47% week-over-week.",
+  "verdict": {
+    "verdict": "fail",
+    "reasons": [
+      "Every number in the draft must point to a supporting source; the activation rate improvement claim is made without a source, failing to meet the requirement that claims must be evidence-based."
+    ]
+  },
+  "original_ephemeral_path": "/tmp/cortex-test-b-critic.json"
+}

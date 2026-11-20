@@ -1,0 +1,35 @@
+M4b — Withheld activity (Test A)
+Reversible in-process harness stubbed get_activity → empty activity[].
+Real fixtures were NOT modified. Critic rules were NOT weakened.
+Preserved from /tmp/cortex-test-a-withheld-activity.txt (nonconfidential excerpts only).
+
+OBSERVED: Cortex recognized missing current activity evidence.
+OBSERVED: Did not invent current Sprint 25 metrics/PRs (no 43%, #820, #823).
+OBSERVED weakness: initially leaned on historical past-update 39%→41%.
+OBSERVED: critic rejected drafts; run ended at REVISION CAP — not a clean immediate escalate.
+
+----- withheld tool return -----
+[step 1] TOOL get_activity({'project_id': 'P-NORTH'})
+          -> {"project_id": "P-NORTH", "activity": [], "note": "TEST A harness: current activity evidence withheld (empty). No PRs/issues/metrics returned."}
+
+----- draft 1 (excerpt) -----
+**Recent Activity:**
+- Activity data is currently withheld, with no recent PRs or open issues reported.
+
+**Progress Overview:**
+- We have previously shipped the activation checklist UI and step-completion instrumentation, moving the activation metric from 39% to 41% week-over-week.
+
+----- first critic fail (excerpt) -----
+{
+  "verdict": "fail",
+  "reasons": [
+    "The project status is reported as Green, but the activity data indicates it is currently withheld...",
+    "The draft implies progress with the activation metric without linking to any specific source..."
+  ]
+}
+
+----- final stop (observed) -----
+STUCK STOP, REVISION CAP (2). Needs Human Review — Validation Failed. Run cost ≈ $0.0041
+Why it was held: validator rejected 2x (revision cap)
+
+Original full log (may be ephemeral): /tmp/cortex-test-a-withheld-activity.txt

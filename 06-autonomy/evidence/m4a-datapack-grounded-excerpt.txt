@@ -1,0 +1,38 @@
+M4a — Grounded retrieval (updated data pack)
+Source: original happy-path run after 2026-07-06 data-pack ingest
+Preserved from /tmp/cortex-datapack-run.txt (nonconfidential excerpts only).
+Fixture source of truth: 00-build/fixtures/projects.json → P-NORTH.activity
+  - pr_merged #820 Day-2 milestone email (2026-07-02)
+  - pr_merged #823 Empty-state guidance copy (closes #818) (2026-07-03)
+  - issue_open #825 Contextual tips A/B needs analytics review (normal)
+  - metric activation_rate value=43% prior=41% window=week-over-week
+Tool: get_activity({'project_id': 'P-NORTH'})
+
+OBSERVED: retrieval succeeded (draft cited 41%→43%, #820/#823, #825).
+OBSERVED: final report did NOT pass validation — critic failed repeatedly; STUCK STOP, REVISION CAP (2).
+Not a SUCCESS / FINAL STATUS UPDATE stop.
+
+----- tool call (truncated as printed by agent) -----
+[step 1] TOOL get_activity({'project_id': 'P-NORTH'})
+          -> {"project_id": "P-NORTH", "activity": [{"type": "pr_merged", "id": "#820", "title": "Day-2 milestone email", "date": "2026-07-02"}, {"type": "pr_merged", "id": "#823", "title": "Empty-state guidance copy (closes #818)", "date": "2026-07-03"}, {"type": "issue_open", "id": "#825", "title": "Contextual
+
+----- draft excerpt (proposed output) -----
+**Metrics:**
+- The activation rate has improved from 41% to 43% week-over-week.
+
+**Recent activity (from draft):**
+- #820 Day-2 milestone email
+- #823 Empty-state guidance copy
+- #825 Contextual tips A/B needs analytics review
+
+----- final critic + stop (observed) -----
+{
+  "verdict": "fail",
+  "reasons": [
+    "The status is incorrectly marked as green. The project currently has an open issue (#825) that, while not a Sev-1, still does not allow for a green status according to the rules."
+  ]
+}
+
+STUCK STOP, REVISION CAP (2). Needs Human Review — Validation Failed. Run cost ≈ $0.0052
+LAST DRAFT (held, NOT posted) — Needs Human Review — Validation Failed
+Why it was held: validator rejected 2x (revision cap)
