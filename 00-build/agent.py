@@ -35,6 +35,7 @@ from openai import OpenAI
 import tools
 from critic import review
 from prompts import CORTEX_SYSTEM
+from status_color import merge_verdicts, update_status_evidence, validate_status_color
 
 try:  # load .env if python-dotenv is installed; harmless if it isn't
     from dotenv import load_dotenv
@@ -170,6 +171,7 @@ def run(which: str = "happy") -> None:
         {"role": "user", "content": f"PM task brief:\n\n{task['body']}"},
     ]
     source_log: list[str] = [task["body"]]
+    status_evidence: dict = {}
     revisions = 0
     data_failures = 0
     no_progress = 0
@@ -197,6 +199,7 @@ def run(which: str = "happy") -> None:
                 args = json.loads(call.function.arguments or "{}")
                 result = tools.TOOLS[fn](**args)
                 source_log.append(f"{fn}({args}) -> {json.dumps(result)}")
+                update_status_evidence(status_evidence, fn, result)
                 print(f"\n[step {step}] TOOL {fn}({args})")
                 print(f"          -> {json.dumps(result)[:300]}")
                 messages.append({"role": "tool", "tool_call_id": call.id,
@@ -273,15 +276,30 @@ def run(which: str = "happy") -> None:
                 review_status="Needs Human Review — Awaiting Approval")
             return
 
+        banner("STATUS COLOR CHECK (deterministic)")
+        status_check = validate_status_color(proposed, status_evidence)
+        print(json.dumps(
+            {k: v for k, v in status_check.items()}, indent=2))
+
         banner("CRITIC, independent validation")
-        verdict = review(client, MODEL, proposed, "\n".join(source_log))
+        llm_verdict = review(client, MODEL, proposed, "\n".join(source_log))
         # Estimate critic spend too.
-        bounds.cost += (verdict["_usage"]["prompt"] * PRICE_IN
-                        + verdict["_usage"]["completion"] * PRICE_OUT) / 1_000_000
-        print(json.dumps({k: v for k, v in verdict.items() if k != "_usage"}, indent=2))
+        bounds.cost += (llm_verdict["_usage"]["prompt"] * PRICE_IN
+                        + llm_verdict["_usage"]["completion"] * PRICE_OUT) / 1_000_000
+        print(json.dumps(
+            {k: v for k, v in llm_verdict.items() if k != "_usage"}, indent=2))
+
+        # BOTH must pass. Never suppress or filter LLM failure reasons.
+        verdict = merge_verdicts(status_check, llm_verdict)
+        print("\nMERGED VALIDATION:")
+        print(json.dumps(
+            {k: v for k, v in verdict.items()
+             if k not in ("_usage", "status_color", "llm_critic")},
+            indent=2))
 
         if verdict["verdict"] == "pass":
-            # SUCCESS: critic passed; draft queued for review; nothing posted.
+            # SUCCESS: deterministic status-color + LLM critic both passed;
+            # draft queued for review; nothing posted.
             banner(f"HITL CHECKPOINT / SUCCESS STOP, status update + any proposed "
                    f"stories queued for your review. Nothing posted, no commitments "
                    f"made. Run cost ≈ ${bounds.cost:.4f}")

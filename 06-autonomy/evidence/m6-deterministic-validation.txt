@@ -1,0 +1,116 @@
+M6 — Deterministic status-color validation (Northstar happy-path retest)
+Source: /tmp/cortex-m2-deterministic-retest.txt
+Command observed: cd 00-build && python3 agent.py happy
+OBSERVED: No HITL CHECKPOINT / SUCCESS STOP. Ended at revision-cap hold.
+
+[… tool calls / draft bodies omitted for readability …]
+
+--- Draft 1 claimed Green; deterministic PASS; LLM critic FAIL ---
+
+================================================================
+STATUS COLOR CHECK (deterministic)
+================================================================
+{
+  "check": "status_color",
+  "verdict": "pass",
+  "reasons": [],
+  "evidence": {
+    "claimed_color": "green",
+    "status": "on_track",
+    "flags": [],
+    "open_issues": [
+      {
+        "id": "#825",
+        "title": "Contextual tips A/B needs analytics review",
+        "severity": "normal"
+      }
+    ],
+    "project_seen": true,
+    "activity_seen": true,
+    "note": "Green supported: on_track, no Sev-1, no launch_hold; normal open issues may be listed: #825"
+  }
+}
+
+================================================================
+CRITIC, independent validation
+================================================================
+{
+  "verdict": "fail",
+  "reasons": [
+    "The output claims the project status is 'Green' but does not support this status conclusively with evidence of no open Sev-1 issues or a launch hold, which could mislead about project health.",
+    "The proposed backlog contains incorrect elements. The 'Launch marketing campaign for day-2 email triggers' is not supported by the project's scope in PRD-Northstar-v3, which outlines specific in-scope items and explicitly states what is out of scope."
+  ]
+}
+
+MERGED VALIDATION:
+{
+  "verdict": "fail",
+  "reasons": [
+    "The output claims the project status is 'Green' but does not support this status conclusively with evidence of no open Sev-1 issues or a launch hold, which could mislead about project health.",
+    "The proposed backlog contains incorrect elements. The 'Launch marketing campaign for day-2 email triggers' is not supported by the project's scope in PRD-Northstar-v3, which outlines specific in-scope items and explicitly states what is out of scope."
+  ]
+}
+
+-> critic rejected; revision 1/2
+
+[… draft 2 Green: deterministic PASS again; LLM critic FAIL again (omitted) …]
+
+--- Draft 3 claimed Yellow; deterministic FAIL (false downgrade) ---
+
+================================================================
+STATUS COLOR CHECK (deterministic)
+================================================================
+{
+  "check": "status_color",
+  "verdict": "fail",
+  "reasons": [
+    "Claimed Yellow is a false downgrade: status is on_track with no open Sev-1 and no launch_hold. Normal-severity open issue(s) (#825) do not, by themselves, require Yellow or Red."
+  ],
+  "evidence": {
+    "claimed_color": "yellow",
+    "status": "on_track",
+    "flags": [],
+    "open_issues": [
+      {
+        "id": "#825",
+        "title": "Contextual tips A/B needs analytics review",
+        "severity": "normal"
+      }
+    ],
+    "project_seen": true,
+    "activity_seen": true
+  }
+}
+
+================================================================
+CRITIC, independent validation
+================================================================
+{
+  "verdict": "fail",
+  "reasons": [
+    "The status is incorrectly reported as Yellow; it should be Green based on the current project status (on_track) and recent engineering activity, as per the source data. Additionally, the report misrepresents the severity of the open issue, thereby failing to accurately convey the project's status."
+  ]
+}
+
+MERGED VALIDATION:
+{
+  "verdict": "fail",
+  "reasons": [
+    "Claimed Yellow is a false downgrade: status is on_track with no open Sev-1 and no launch_hold. Normal-severity open issue(s) (#825) do not, by themselves, require Yellow or Red.",
+    "The status is incorrectly reported as Yellow; it should be Green based on the current project status (on_track) and recent engineering activity, as per the source data. Additionally, the report misrepresents the severity of the open issue, thereby failing to accurately convey the project's status."
+  ]
+}
+
+================================================================
+STUCK STOP, REVISION CAP (2). Needs Human Review — Validation Failed. Run cost ≈ $0.0061
+================================================================
+
+================================================================
+LAST DRAFT (held, NOT posted) — Needs Human Review — Validation Failed
+================================================================
+[… held Yellow draft body omitted …]
+
+Why it was held: validator rejected 2x (revision cap)
+Review status: Needs Human Review — Validation Failed
+
+Saved draft -> run-output/status-update-happy.md  (for your review, nothing was posted)

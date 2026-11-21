@@ -1,0 +1,25 @@
+M6 — API-free status_color unit/merge tests (reported result)
+LABEL: REPORTED RESULT — original unittest stdout was not saved to a durable tee/log file.
+This file does NOT re-run tests and does NOT fabricate a verbose terminal transcript.
+
+Command reported in-session:
+  cd 00-build && python3 -m unittest tests.test_status_color -v
+
+Reported outcome (from the implementation session summary; not regenerated here):
+  14/14 OK
+  Ran 14 tests
+  OK
+
+What those tests were reported to cover (summary only):
+  - Normal #825 Green pass / Yellow fail (false downgrade)
+  - Sev-1 Green fail / Yellow pass
+  - launch_hold Green fail / Yellow pass
+  - Missing project or activity evidence fail
+  - Merge: PASS+PASS → pass; FAIL+PASS → fail; PASS+FAIL → fail (LLM reasons preserved);
+    both fail → concatenated reasons
+
+Supporting source files in the working tree (may be uncommitted at time of this note):
+  00-build/status_color.py
+  00-build/tests/test_status_color.py
+
+This is not evidence of an end-to-end HITL CHECKPOINT / SUCCESS STOP.

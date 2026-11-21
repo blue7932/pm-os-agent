@@ -1,0 +1,24 @@
+M2 — Missing-data safe stop (human-review hold)
+Source: /tmp/cortex-missing-data-run.txt (local fixture run; nonconfidential excerpts).
+Command observed: python3 agent.py missing-data
+Note: Does NOT claim HITL CHECKPOINT / SUCCESS STOP.
+
+[… task brief omitted for brevity; fixture asks for P-HALO status + firm GA date …]
+
+[step 1] TOOL get_project({'project_id': 'P-HALO'})
+          -> {"error": "project_not_found", "project_id": "P-HALO", "hint": "no such project in the system", "known_projects": ["P-NORTH", "P-VEGA", "P-ORBIT"]}
+          !! data failure 1/3 (project_not_found)
+
+================================================================
+STUCK STOP, required data unavailable (get_project -> project_not_found). Never invent missing info. Run cost ≈ $0.0002
+================================================================
+
+================================================================
+LAST DRAFT (held, NOT posted) — Needs Human Review — Validation Failed
+================================================================
+(Cortex stopped before it produced a draft, nothing to show.)
+
+Why it was held: required data unavailable (get_project -> project_not_found)
+Review status: Needs Human Review — Validation Failed
+
+Saved draft -> run-output/status-update-missing-data.md  (for your review, nothing was posted)
