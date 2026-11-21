@@ -23,6 +23,10 @@ Real screenshots of *your* Cortex running. These are the `00-build/CORTEX-ANATOM
 |---|---|---|---|
 | 1 | Captured in run log + `00-build/run-output/status-update-happy.md` (replace with screenshot when handy) | happy-path run: drafted update + **HITL CHECKPOINT / SUCCESS STOP** (queued, not posted). Also verified stuck stop via `python agent.py missing-data` → `project_not_found` | M2 |
 | 2 | ![M3 critic reject](m3-critic-reject.png) + transcript below + `00-build/run-output/m3-critic-reject-trace.txt` | Critic rejects unauthorized GA date + invented NPS; revises twice then escalates | M3 |
+| 3 | Trace excerpts below + `06-autonomy/evidence/m4a-*.txt`, `m4b-*.txt`, `m4c-*.json` | M4 grounding: (a) retrieved data-pack evidence, (b) withheld-activity probe, (c) isolated critic catch of fabricated metric — with observed weaknesses noted | M4 |
+| 4 | _[img]_ | jailbreak refused + escalated | M5 |
+| 5 | _[img]_ | an iteration/cost/queue bound halting a runaway | M5 |
+| 6 | _[img]_ | end-to-end run | M6 |
 
 ### M3 capture — critic rejecting a bad draft
 
@@ -51,11 +55,6 @@ Why it was held: validator rejected 2x (revision cap)
 ```
 
 Full trace: `00-build/run-output/m3-critic-reject-trace.txt`
-
-| 3 | Trace excerpts below + `06-autonomy/evidence/m4a-*.txt`, `m4b-*.txt`, `m4c-*.json` | M4 grounding: (a) retrieved data-pack evidence, (b) withheld-activity probe, (c) isolated critic catch of fabricated metric — with observed weaknesses noted | M4 |
-| 4 | _[img]_ | jailbreak refused + escalated | M5 |
-| 5 | _[img]_ | an iteration/cost/queue bound halting a runaway | M5 |
-| 6 | _[img]_ | end-to-end run | M6 |
 
 ### M4 capture — grounding verification (three labeled tests)
 
